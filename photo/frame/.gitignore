@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Configuration (never commit real credentials)
+config.py
+
+# Build
+build/
+firmware.uf2
+
+# IDE
+.vscode/
+.idea/
+*.swp

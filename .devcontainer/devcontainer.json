@@ -1,0 +1,38 @@
+{
+  "name": "MicroPython Pico Dev",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-python.debugpy",
+        "charliermarsh.ruff",
+        "ms-vscode.makefile-tools",
+        "earlephilhower.raspberry-pi-pico-sdk",
+        "paulober.pico-w-go",
+        "ms-vscode.cpptools"
+      ],
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/local/bin/python",
+        "python.linting.enabled": true,
+        "python.linting.pylintEnabled": true,
+        "python.formatting.provider": "black",
+        "[python]": {
+          "editor.formatOnSave": true
+        },
+        "python.testing.pytestEnabled": true
+      }
+    }
+  },
+  "forwardPorts": [8000, 8001],
+  "mounts": [
+    "source=/dev,target=/dev,type=bind,consistency=cached"
+  ],
+  "remoteUser": "vscode",
+  "remoteEnv": {
+    "PICO_SDK_PATH": "/opt/pico-sdk/pico-sdk"
+  }
+}

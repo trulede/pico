@@ -1,0 +1,19 @@
+# Certificates (never commit)
+certs/
+*.pem
+
+# Docker
+.dockerignore
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Environment
+.env
+.env.local
+
+# Build
+build/
+dist/

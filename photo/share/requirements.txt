@@ -1,0 +1,5 @@
+# No Python dependencies required for Nginx
+# This file is kept for reference only
+
+# Nginx is used instead of Python Flask for better performance
+
