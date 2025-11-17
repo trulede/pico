@@ -13,7 +13,8 @@
         "ms-vscode.makefile-tools",
         "earlephilhower.raspberry-pi-pico-sdk",
         "paulober.pico-w-go",
-        "ms-vscode.cpptools"
+        "ms-vscode.cpptools",
+        "raspberry-pi.raspberry-pi-pico"
       ],
       "settings": {
         "python.defaultInterpreterPath": "/usr/local/bin/python",
