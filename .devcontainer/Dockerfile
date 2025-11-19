@@ -21,8 +21,24 @@ RUN apt-get update && \
     tar \
     unzip \
     wget \
+    apt-transport-https \
+    ca-certificates \
+    gnupg \
+    lsb-release \
     && rm -rf /var/lib/apt/lists/*
 
+# Install Docker CLI version 1.4.3
+RUN curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg && \
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" > /etc/apt/sources.list.d/docker.list && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends docker-ce-cli=5:20.10.24~3-0~debian-bullseye && \
+    rm -rf /var/lib/apt/lists/*
+
+# Install Docker Buildx
+RUN mkdir -p ~/.docker/cli-plugins/ && \
+    curl -SL https://github.com/docker/buildx/releases/latest/download/buildx-$(uname -m) -o ~/.docker/cli-plugins/docker-buildx && \
+    chmod +x ~/.docker/cli-plugins/docker-buildx
+    
 # Install MicroPython tools
 RUN pip install --no-cache-dir \
     black \
@@ -46,8 +62,12 @@ RUN cd $MICROPYTHON_PATH; make -C ports/rp2 submodules; make -C mpy-cross
 # Set up user (for VS Code devcontainer best practices)
 ARG USERNAME=vscode
 USER root
-RUN usermod -aG dialout,plugdev $USERNAME
+RUN groupadd -f docker && usermod -aG dialout,plugdev,docker $USERNAME
 USER $USERNAME
+
+
+# Enable BuildKit by default
+ENV DOCKER_BUILDKIT=1
 
 # Set working directory
 WORKDIR /workspaces/pico
